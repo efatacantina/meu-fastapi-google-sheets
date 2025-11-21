@@ -1,4 +1,5 @@
 import { useState } from "react";
+const API_URL = "https://meu-fastapi-google-sheets.onrender.com";
 
 function App() {
   const [produto, setProduto] = useState("");
@@ -6,7 +7,8 @@ function App() {
   const [preco, setPreco] = useState(0);
 
   const enviar = async () => {
-    const resposta = await fetch("/registrar", {
+
+    const resposta = await fetch(`${API_URL}/registrar`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ produto, quantidade, preco }),
@@ -21,26 +23,26 @@ function App() {
     <div style={{ padding: "40px" }}>
       <h1>Registro de Venda</h1>
 
-      <input 
-        placeholder="Produto" 
-        value={produto} 
-        onChange={e => setProduto(e.target.value)} 
+      <input
+        placeholder="Produto"
+        value={produto}
+        onChange={e => setProduto(e.target.value)}
       />
       <br />
 
-      <input 
+      <input
         type="number"
-        placeholder="Quantidade" 
-        value={quantidade} 
-        onChange={e => setQuantidade(+e.target.value)} 
+        placeholder="Quantidade"
+        value={quantidade}
+        onChange={e => setQuantidade(+e.target.value)}
       />
       <br />
 
-      <input 
+      <input
         type="number"
-        placeholder="Preço" 
-        value={preco} 
-        onChange={e => setPreco(+e.target.value)} 
+        placeholder="Preço"
+        value={preco}
+        onChange={e => setPreco(+e.target.value)}
       />
       <br /><br />
 
