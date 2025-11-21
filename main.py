@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from googleapiclient.discovery import build
 from oauth2client.service_account import ServiceAccountCredentials
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 import os
 
 app = FastAPI()
@@ -26,7 +27,11 @@ class Pedido(BaseModel):
     quantidade: int
     preco: float
 
-app.mount("/", StaticFiles(directory="static", html=True), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+@app.get("/")
+def home():
+    return FileResponse("static/index.html")
 
 @app.post("/registrar")
 def registrar_pedido(pedido: Pedido):
