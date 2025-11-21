@@ -27,7 +27,7 @@ class Pedido(BaseModel):
     quantidade: int
     preco: float
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/assets", StaticFiles(directory="static/assets"), name="assets")
 
 @app.get("/")
 def home():
