@@ -1,0 +1,26 @@
+# Arquivos do Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.env
+env/
+venv/
+.venv/
+
+# IDEs / Editor
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Arquivos sensíveis
+credentials.json
+service_account.json
+*.pem
+*.key
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
