@@ -24,3 +24,7 @@ service_account.json
 # Sistema operacional
 .DS_Store
 Thumbs.db
+
+# Node
+frontend/node_modules/
+frontend/dist/
