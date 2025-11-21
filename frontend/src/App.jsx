@@ -6,7 +6,7 @@ function App() {
   const [preco, setPreco] = useState(0);
 
   const enviar = async () => {
-    const resposta = await fetch("http://0.0.0.0:10000//registrar", {
+    const resposta = await fetch("/registrar", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ produto, quantidade, preco }),
