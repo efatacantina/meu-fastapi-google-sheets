@@ -2,26 +2,20 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from googleapiclient.discovery import build
 from oauth2client.service_account import ServiceAccountCredentials
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+import os
 
 app = FastAPI()
-
-# ----- CORS -----
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 # ----- Google Sheets Setup -----
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 SPREADSHEET_ID = "1EzQ91B6cusEoDGc3onAIfwDdepvo38xld0agiHBwUyM"
 RANGE = "Página1!A:C"
 
+CREDENTIALS_PATH = "/etc/secrets/credentials.json"
+
 credentials = ServiceAccountCredentials.from_json_keyfile_name(
-    "credentials.json", scopes=SCOPES
+    CREDENTIALS_PATH, scopes=SCOPES
 )
 
 service = build("sheets", "v4", credentials=credentials)
@@ -31,6 +25,8 @@ class Pedido(BaseModel):
     produto: str
     quantidade: int
     preco: float
+
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
 @app.post("/registrar")
 def registrar_pedido(pedido: Pedido):
